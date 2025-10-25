@@ -1,0 +1,436 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Energy Economic - Solicitud de Servicio</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    
+    </head>
+<body>
+
+    <header>
+        <h1>Energy Economic</h1>
+        <p>Soluciones de Energía Confiables y a tu Alcance</p>
+    </header>
+
+    <div id="main-container">
+        
+        <div id="paquetes-view">
+            <div id="how-it-works">
+      
+          <p>💡 ¿Cómo funciona?
+Nuestros planes son de "pago único mensual", consuma lo que usted consuma.<br>¡Sin sorpresas en su factura!</p>
+            </div>
+
+            <h2>Elige el Plan que Mejor se Adapta a Ti</h2>
+            <div id="paquetes">
+                <div class="paquete-card" data-tipo="Casa">
+                    <i class="fas 
+fa-home icon"></i>
+                    <h3>Plan Casa</h3>
+                    <p>Ideal para el consumo de hogares grandes con todas las comodidades.</p>
+                    <div class="precio-display">115<span>mensual</span></div>
+                    <button onclick="iniciarSolicitud('Casa')">Solicitar Servicio</button>
+     
+           </div>
+
+                <div class="paquete-card" data-tipo="Traila">
+                    <i class="fas fa-trailer icon"></i>
+                    <h3>Plan Traila</h3>
+                    <p>Perfecto para casas móviles y remolques, adaptado 
+a tus necesidades.</p>
+                    <div class="precio-display">115<span>mensual</span></div>
+                    <button onclick="iniciarSolicitud('Traila')">Solicitar Servicio</button>
+                </div>
+
+                <div class="paquete-card" data-tipo="Apartamento">
+                    <i 
+class="fas fa-building icon"></i>
+                    <h3>Plan Apartamento</h3>
+                    <p>La mejor tarifa para viviendas en edificios y espacios reducidos.</p>
+                    <div class="precio-display">85<span>mensual</span></div>
+                    <button onclick="iniciarSolicitud('Apartamento')">Solicitar Servicio</button>
+     
+           </div>
+            </div>
+
+            <div id="contact-section">
+                <h3>¿Tienes Dudas?
+Contáctanos</h3>
+                <p>Estamos aquí para ayudarte a elegir el plan correcto o resolver cualquier consulta sobre tu servicio.</p>
+                <div class="contact-details">
+                    <div class="contact-item">
+                        <i class="fas fa-phone-alt"></i>
+     
+                   <a href="tel:+13462002809">+1 346-200-2809</a>
+                    </div>
+                    <div class="contact-item">
+                        <i class="fas fa-envelope"></i>
+            
+            <a href="mailto:energygreenvp@gmail.com">energygreenvp@gmail.com</a>
+                    </div>
+                </div>
+            </div>
+            </div>
+
+        <div id="formulario-view">
+            <form id="formulario-servicio" action="https://formspree.io/f/mdkpnzvp" method="POST">
+     
+           <button type="button" class="back-button" onclick="regresarAlInicio()" title="Volver a los planes">&#x2190;</button>
+
+                <h2 id="form-titulo">Solicitud de Servicio: <span id="tipo-servicio-elegido"></span></h2>
+                
+                <input type="hidden" id="tipo_servicio" name="tipo_servicio" value="">
+
+                <div class="form-group required">
+       
+             <label for="nombre">Nombre(s)</label>
+                    <input type="text" id="nombre" name="nombre" required placeholder="Ej: Juan">
+                </div>
+                <div class="form-group required">
+                    <label for="apellido">Apellido(s)</label>
+     
+               <input type="text" id="apellido" name="apellido" required placeholder="Ej: Pérez García">
+                </div>
+                <div class="form-group required">
+                    <label for="direccion">Dirección (Calle y Número)</label>
+                    
+<input type="text" id="direccion" name="direccion" required placeholder="Ej: Calle Falsa 123">
+                </div>
+                <div class="form-group required">
+                    <label for="codigo_postal">Código Postal</label>
+                    <input type="text" id="codigo_postal" name="codigo_postal" required pattern="^\d{5,10}$" title="Debe contener entre 5 y 10 dígitos."
+placeholder="Ej: 77710">
+                </div>
+                <div class="form-group required">
+                    <label for="telefono">Número Telefónico</label>
+                    <input type="tel" id="telefono" name="telefono" required pattern="^\+1 \d{3}-\d{3}-\d{4}$" title="El formato debe ser +1 XXX-XXX-XXXX" maxlength="15" placeholder="+1 XXX-XXX-XXXX">
+        
+        </div>
+                <div class="form-group required">
+                    <label for="correo">Correo Electrónico</label>
+                    <input type="email" id="correo" name="correo" required placeholder="Ej: su.correo@ejemplo.com">
+                </div>
+          
+      
+                <button type="submit" class="submit-button">Enviar Solicitud de Servicio</button>
+            </form>
+        </div>
+    </div>
+
+    <div id="confirmation-modal" class="modal-overlay">
+        <div id="confirmation-content" class="modal-content">
+            <button type="button" class="close-button" onclick="cerrarModal('confirmation-modal')" title="Cerrar">&#x2715;</button> 
+            <h3>Confirma tus Datos</h3>
+  
+          <p>Por favor, verifica que la siguiente información sea correcta antes de enviar:</p>
+            <div id="datos-confirmacion" style="text-align: left;
+margin-bottom: 20px;">
+                </div>
+            <div class="button-group">
+                <button type="button" id="cancel-btn">Cancelar</button>
+                <button type="button" id="confirm-btn">Confirmar</button>
+            </div>
+        </div>
+    </div>
+
+    <div id="notification-modal" class="modal-overlay">
+    
+    <div id="notification-content" class="modal-content">
+            <button type="button" class="close-button" onclick="regresarAlInicio()" title="Cerrar y volver al inicio">&#x2715;</button> 
+            <h3><i class="fas fa-check-circle"></i> ¡Solicitud Enviada con Éxito!</h3>
+            <p>Tu solicitud ha sido recibida. Nuestro equipo se pondrá en contacto contigo muy pronto para los siguientes pasos.</p>
+            <p style="margin-bottom: 5px;">Para cualquier duda sobre tu servicio o solicitud, puedes comunicarte:</p>
+   
+         <p class="contact-info">📞 <i class="fas fa-phone-alt"></i> **Teléfono:** +1 346-200-2809</p>
+            <p class="contact-info">📧 <i class="fas fa-envelope"></i> **Correo:** energygreenvp@gmail.com</p>
+            <button type="button" id="accept-btn" style="width: 100%;
+margin-top: 25px;">Aceptar</button>
+        </div>
+    </div>
+
+    <script>
+        // Variables de Elementos del DOM
+        const paquetesView = document.getElementById('paquetes-view');
+        const formularioView = document.getElementById('formulario-view');
+        const formulario = document.getElementById('formulario-servicio');
+        const tipoServicioElegido = document.getElementById('tipo-servicio-elegido');
+        const tipoServicioInput = document.getElementById('tipo_servicio');
+        const confirmationModal = document.getElementById('confirmation-modal');
+    
+    const notificationModal = document.getElementById('notification-modal');
+        const datosConfirmacion = document.getElementById('datos-confirmacion');
+        const telefonoInput = document.getElementById('telefono');
+        const confirmButton = document.getElementById('confirm-btn'); // Nueva referencia al botón de Confirmar
+        
+        // Elementos específicos para Traila
+        // NOTA: El HTML no contiene inputs con los IDs 'num_domicilio' o 'group-num_domicilio', por lo que estas variables JS no funcionarán como se esperaba con el HTML actual.
+        const numDomicilioInput = document.getElementById('num_domicilio');
+        const groupNumDomicilio = document.getElementById('group-num_domicilio');
+        let datosFormulario = {}; 
+        
+        /**
+         * Función auxiliar para capitalizar cadenas (primera letra de cada palabra en mayúscula).
+* @param {string} str - La cadena a capitalizar.
+         * @returns {string} La cadena capitalizada.
+*/
+        function capitalize(str) {
+            if (!str) return '';
+            return str.toLowerCase().split(' ').map(word => {
+                if (word.length === 0) return '';
+                return word.charAt(0).toUpperCase() + word.slice(1);
+            }).join(' ');
+        }
+
+
+        /**
+         * Función para iniciar la solicitud y configurar el formulario.
+* @param {string} tipo - El tipo de servicio seleccionado ('Casa', 'Traila' o 'Apartamento').
+*/
+        function iniciarSolicitud(tipo) {
+            paquetesView.style.display = 'none';
+            formularioView.style.display = 'block';
+            tipoServicioElegido.textContent = tipo;
+            tipoServicioInput.value = tipo;
+
+            // Lógica para el campo "Número de Domicilio"
+            // NOTA: Esta sección no es completamente funcional debido a la ausencia de num_domicilio/group-num_domicilio en el HTML.
+            if (tipo === 'Traila') {
+                if (numDomicilioInput) numDomicilioInput.removeAttribute('required');
+                if (numDomicilioInput) numDomicilioInput.value = ''; 
+                if (groupNumDomicilio) groupNumDomicilio.classList.remove('required');
+                if (groupNumDomicilio) groupNumDomicilio.querySelector('label').textContent = 'Número de Domicilio (Opcional)';
+                if (numDomicilioInput) numDomicilioInput.placeholder = 'No aplica / Opcional';
+            } else {
+                if (numDomicilioInput) numDomicilioInput.setAttribute('required', 'required');
+                if (groupNumDomicilio) groupNumDomicilio.classList.add('required');
+                if (groupNumDomicilio) groupNumDomicilio.querySelector('label').textContent = 'Número de Domicilio';
+                if (numDomicilioInput) numDomicilioInput.placeholder = 'Ej: 4B';
+            }
+
+            formulario.scrollIntoView({ behavior: 'smooth' });
+        }
+
+        /**
+         * Función para cerrar un modal específico.
+* @param {string} idModal - El ID del modal a cerrar.
+*/
+        function cerrarModal(idModal) {
+            document.getElementById(idModal).style.display = 'none';
+        }
+
+        /**
+         * Función para regresar a la vista principal de paquetes.
+*/
+        function regresarAlInicio() {
+            cerrarModal('confirmation-modal');
+            cerrarModal('notification-modal');
+            
+            formularioView.style.display = 'none';
+            paquetesView.style.display = 'block'; 
+            formulario.reset(); 
+            window.scrollTo(0, 0);
+        }
+
+        /**
+         * Manejador para formatear el teléfono automáticamente a +1 XXX-XXX-XXXX.
+*/
+        telefonoInput.addEventListener('input', function(e) {
+            let input = e.target.value.replace(/\D/g, ''); 
+
+            if (input.length > 0 && input.charAt(0) !== '1') {
+                input = '1' + input;
+            }
+            
+         
+            if (input.length > 11) {
+                input = input.substring(0, 11);
+            }
+
+            let formatted = '';
+            if (input.length > 0) {
+                formatted += '+';
+            }
+ 
+           if (input.length > 0) {
+                formatted += input.substring(0, 1); 
+            }
+            if (input.length > 1) {
+                formatted += ' ' + input.substring(1, 4);
+            }
+   
+         if (input.length > 4) {
+                formatted += '-' + input.substring(4, 7);
+            }
+            if (input.length > 7) {
+                formatted += '-' + input.substring(7, 11);
+            }
+
+     
+            e.target.value = formatted;
+        });
+/**
+         * Manejador del evento de envío del formulario.
+* Muestra el modal de confirmación con datos capitalizados.
+         */
+        formulario.addEventListener('submit', function(event) {
+            event.preventDefault();
+
+            let isFormValid = true;
+            const requiredInputs = formulario.querySelectorAll('input[required]');
+            requiredInputs.forEach(input => {
+                // La lógica de Traila con num_domicilio se omite aquí ya que num_domicilio no está en el HTML
+                if (input.id === 'num_domicilio' && tipoServicioInput.value === 'Traila') {
+ 
+                } else if (!input.checkValidity()) {
+                    isFormValid = false;
+                    input.reportValidity(); 
+                }
+            });
+
+          
+            if (!isFormValid) {
+                return; 
+            }
+
+            // Mapeo final de datos para confirmación (y envío)
+            datosFormulario = {};
+            let htmlDatos = ``;
+
+            const inputs = formulario.querySelectorAll('input');
+            inputs.forEach(input => {
+         
+                if (input.name && input.type !== 'hidden') { 
+                    const key = input.name;
+                    let value = input.value.trim();
+                    const displayKey = key.replace(/_/g, ' ').replace(/\b\w/g, l => l.toUpperCase());
+                    if (key === 'nombre' || key === 'apellido' || key === 'direccion') {
+                        value = capitalize(value);
+                    }
+                    
+                    // Lógica para num_domicilio omitida/adaptada para el HTML actual que no lo tiene
+                    if (key === 'num_domicilio' && value === '') {
+                        value = 'No aplica / No proporcionado';
+                    } else if (key === 'num_domicilio' && tipoServicioInput.value === 'Traila') {
+                        // Mantener el valor original de num_domicilio para el envío POST si existe.
+                    }
+
+
+                    // Usamos la clave original del input para el objeto de envío, pero el displayKey para el modal
+                    datosFormulario[key] = value;
+                    htmlDatos += `<p><strong>${displayKey}:</strong> ${value}</p>`;
+                } else if (input.name === 'tipo_servicio') {
+                    // Incluir el servicio elegido en los datos del formulario (clave original)
+                    datosFormulario[input.name] = input.value;
+                }
+            });
+            
+            // Revertir el campo num_domicilio si es Traila para el modal (opcional, solo por presentación)
+            if (tipoServicioInput.value === 'Traila' && datosFormulario['num_domicilio'] === '') {
+                // Esto solo tendrá efecto si se agrega el input num_domicilio al HTML y el JS se actualiza.
+                datosFormulario['num_domicilio'] = 'No aplica / No proporcionado';
+            }
+
+
+            datosConfirmacion.innerHTML = htmlDatos;
+            confirmationModal.style.display = 'flex';
+        });
+
+        /**
+         * Manejador del botón 'Confirmar'.
+         * Lógica de ENVÍO DE DATOS
+*/
+        confirmButton.addEventListener('click', async function() {
+            // Asegurarse de que el botón no se pueda presionar dos veces
+            confirmButton.disabled = true;
+            confirmButton.textContent = 'Enviando...';
+
+            // Adaptar los datos para el envío a Formspree (usando las claves originales)
+            const submissionData = {};
+            // La clave 'Num Domicilio' no existe en los datos del formulario actual, pero se mantiene por si se añade:
+            const keysToExcludeFromSubmission = ['Num Domicilio']; 
+
+            for (const key in datosFormulario) {
+                if (Object.hasOwnProperty.call(datosFormulario, key)) {
+                    // Las claves de datosFormulario ya son las claves originales de los inputs (nombre, apellido, etc.) o 'tipo_servicio',
+                    // excepto por 'num_domicilio' que se maneja aparte en el JS original (que no está presente en el HTML).
+                    // Asumiremos que las claves son correctas para Formspree.
+                    
+                    const displayKey = key.replace(/_/g, ' ').replace(/\b\w/g, l => l.toUpperCase());
+                    let valueToSend = datosFormulario[key];
+                    
+                    // Si el valor es el placeholder 'No aplica...', enviar vacío para Formspree.
+                    if (valueToSend === 'No aplica / No proporcionado' || valueToSend === '') {
+                        valueToSend = ''; 
+                    }
+                    
+                    if (!keysToExcludeFromSubmission.includes(displayKey)) {
+                       submissionData[displayKey] = valueToSend; 
+                    }
+                }
+            }
+            
+            // Aseguramos que el tipo de servicio esté incluido
+            submissionData['Tipo_Servicio'] = tipoServicioInput.value;
+
+
+            try {
+                const response = await fetch(formulario.action, {
+                    method: formulario.method,
+                    headers: {
+                        'Accept': 'application/json',
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(submissionData) 
+                });
+
+                if (response.ok) {
+                    // Éxito: Mostrar notificación
+                    console.log('Solicitud enviada con éxito a Formspree.', submissionData);
+                    cerrarModal('confirmation-modal');
+                    notificationModal.style.display = 'flex'; 
+                } else {
+                    // Fallo del servidor (ej. error 400, 500)
+                    const data = await response.json();
+                    let errorMessage = 'Error al enviar la solicitud. Por favor, inténtalo de nuevo o contáctanos por teléfono.';
+                    if (data && data.error) {
+                        errorMessage += ' Detalle: ' + data.error;
+                    }
+                    alert(errorMessage);
+                    console.error('Error de Formspree:', response.status, data);
+                    cerrarModal('confirmation-modal');
+                }
+            } catch (error) {
+                // Fallo de red
+                alert('Ocurrió un error de conexión. Por favor, verifica tu internet e inténtalo de nuevo.');
+                console.error('Error de red al enviar el formulario:', error);
+                cerrarModal('confirmation-modal');
+            } finally {
+                // Restaurar el botón
+                confirmButton.disabled = false;
+                confirmButton.textContent = 'Confirmar';
+            }
+        });
+
+        /**
+         * Manejador del botón 'Cancelar' (cierra la confirmación).
+*/
+        document.getElementById('cancel-btn').addEventListener('click', function() {
+            cerrarModal('confirmation-modal');
+        });
+/**
+         * Manejador del botón 'Aceptar' (vuelve al inicio).
+*/
+        document.getElementById('accept-btn').addEventListener('click', regresarAlInicio);
+// Inicializar la vista al cargar la página
+        document.addEventListener('DOMContentLoaded', () => {
+            regresarAlInicio(); 
+            paquetesView.style.display = 'block'; 
+            document.getElementById('paquetes').style.display = 'flex'; 
+        });
+</script>
+</body>
+</html>
